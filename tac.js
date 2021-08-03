@@ -58,49 +58,37 @@ function draw() {
 	if (result != null) {
 		createP(result + ' wins').style('color', '#000');
 		noLoop();
-	} else {
-		nexTurn();
+	} 
+}
+
+
+
+
+
+
+function isValid(i,j) {
+	let ind = i + j*3;
+	if(avail[ind] == 1 && totalMoves > 0){
+		avail[ind] = 0;
+		totalMoves = totalMoves - 1;
+		return true
+	}
+	return false
+}
+
+
+function mouseClicked() {
+	i = floor((3*mouseX)/width)
+	j = floor((3*mouseY)/height)
+	let val = isValid(i,j);
+	if (val == true){
+		board[i][j] = players[currentPlayer];
+		currentPlayer = (currentPlayer+1)%players.length;
+	}
+	else{
+		createP('invalid').style('color', '#000');
 	}
 }
-
-
-
-
-function nexTurn() {
-	let index = floor(random(avail.length));
-	let spot = avail.splice(index,1)[0];
-
-	let i = spot[0];
-	let j = spot[1];
-
-	board[i][j] = players[currentPlayer];
-	currentPlayer = (currentPlayer + 1)%players.length;
-}
-
-
-// function isValid(i,j) {
-// 	let ind = i + j*3;
-// 	if(avail[ind] == 1 && totalMoves > 0){
-// 		avail[ind] = 0;
-// 		totalMoves = totalMoves - 1;
-// 		return true
-// 	}
-// 	return false
-// }
-
-
-// function mouseClicked() {
-// 	i = floor((3*mouseX)/width)
-// 	j = floor((3*mouseY)/height)
-// 	let val = isValid(i,j);
-// 	if (val == true){
-// 		board[i][j] = players[currentPlayer];
-// 		currentPlayer = (currentPlayer+1)%players.length;
-// 	}
-// 	else{
-// 		createP('invalid').style('color', '#000');
-// 	}
-// }
 
 
 
